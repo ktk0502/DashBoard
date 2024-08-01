@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Notice Board</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+    
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #F3F4F6 30%, #d8b4e2);
+    }
+    #notice-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 1rem;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+      #notice-board {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+    .widget {
+      background-color: transparent;
+      padding: 1rem;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+    .full-height {
+      grid-row: span 2 / span 2;
+    }
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+    .flex-grow {
+      flex: 1;
+    }
+    .tall-widget {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .smaller-widget {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #checklist-container {
+      overflow: auto;
+      /* white-space: nowrap; */
+      width: 100%;
+    }
+    #checklist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .chatbox {
+  border-radius: 0.5rem;
+  /* background-color: #f9f9f9; */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chatbox-input {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: calc(100% - 44px);
+  border: 1px solid #ddd;
+  margin-right: 8px;
+}
+
+.chatbox-button {
+  background-color: #554ef1;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 2px;
+}
+
+.chatbox-button:hover {
+  background-color: #4a3db9;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+}
+
+.message.incoming {
+  background-color: #ececec;
+}
+
+.message.outgoing {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+}
+    .task-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      background-color: #e0e0e0;
+      border-radius: 0.25rem;
+      min-width: 120px;
+      box-sizing: border-box;
+      text-align: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.3s;
+    }
+    #poll {
+      overflow-y: auto; /* Enable vertical scrolling */
+      max-height: 300px; /* Set a maximum height */
+      padding: 1rem;
+      /* border: 1px solid #ddd; */
+      border-radius: 0.5rem;
+      max-height: 200px;
+    }
+    .poll-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .poll-option input {
+      margin-right: 0.5rem;
+    }
+    .poll-option span {
+      flex: 1;
+    }
+    #create-poll-section {
+      margin-top: 1rem;
+    }
+    .chatBot {
+      background-color: transparent;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .chatbox {
+      border-radius: 0.5rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .chatbox-input {
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      width: calc(100% - 44px);
+      border: 1px solid #ddd;
+      margin-right: 8px;
+    }
+
+    .chatbox-button {
+      background-color: #554ef1;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-top: 2px;
+    }
+
+    .chatbox-button:hover {
+      background-color: #4a3db9;
+    }
+
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+    }
+
+    .message.incoming {
+      background-color: #ececec;
+    }
+
+    .message.outgoing {
+      background-color: #d1e7dd;
+      align-self: flex-end;
+    }
+  </style>
+</head>
+<body>
+  <h2 class="text-lg font-semibold"></h2>
+  <div id="notice-board">
+    <div id="google-slide" class="widget full-height">
+      <iframe id="slide-frame" src="https://slides.com/the_product_folks/deck-4fd0d7#/1" frameborder="0" width="100%" height="90%"></iframe>
+      <div class="flex justify-center mt-2">
+        <button id="add-slide" class="bg-purple-500 text-white px-4 py-2 rounded mr-2">Add Slides</button>
+      </div>
+    </div>
+    <div class="flex-row gap-2">
+      <div id="pomodoro-timer" class="widget flex-grow smaller-widget">
+        <h2 class="text-lg font-semibold mb-2">Pomodoro Timer</h2>
+        <div id="timer" class="text-2xl mb-4">
+          <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <button id="start-pomodoro" class="bg-purple-500 text-white px-4 py-2 rounded mr-2">Start</button>
+        <button id="reset-pomodoro" class="bg-purple-500 text-white px-4 py-2 rounded mr-2">Reset</button>
+      </div>
+      <div id="poll" class="widget flex-grow smaller-widget">
+        <h2 class="text-lg font-semibold mb-2">Poll</h2>
+        <div id="poll-question" class="mb-4"></div>
+        <form id="poll-form"></form>
+        <div id="poll-results" class="text-black mt-4"></div>
+    
+        <div id="create-poll-section" class="mt-4">
+          <h2 class="text-lg font-semibold mb-2">Create a Poll</h2>
+          <input type="text" id="question" placeholder="Enter your question here" class="border px-2 py-1 mb-2 w-full">
+          <input type="text" id="option1" placeholder="Option 1" class="border px-2 py-1 mb-2 w-full">
+          <input type="text" id="option2" placeholder="Option 2" class="border px-2 py-1 mb-2 w-full">
+          <input type="text" id="option3" placeholder="Option 3" class="border px-2 py-1 mb-2 w-full">
+          <button id="create-poll" class="bg-purple-500 text-white px-4 py-2 rounded">Create Poll</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="dgc" class="widget tall-widget">
+      <h2 class="text-lg font-semibold mb-2">Opportunity List</h2>
+      <div id="checklist-container">
+        <div id="checklist"></div>
+      </div>
+      <input type="text" id="new-task" placeholder="New task" class="border px-2 py-1 mb-2 mt-2">
+      <button id="add-task" class="bg-purple-500 text-white px-4 py-2 rounded">Add</button>
+    </div>
+
+    <div id="opportunity-board" class="widget row-span-2" style="overflow-y: hidden;">
+      <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" style="border-radius: 2%;" width="100%" height="88%" frameborder="0" scrolling="no"></iframe>
+      <div class="flex justify-center mt-2">
+        <button id="update-calendar" class="bg-purple-500 text-white px-4 py-2 rounded mr-2">Add Calender</button>
+      </div>
+    </div>
+    
+    <div id="announcements" class="widget row-span-2">
+      <div class="chatBot">
+        <header class="flex justify-between items-center mb-2">
+            <h2 class="text-lg font-semibold">ChatBot</h2>
+            <span id="cross" onclick="cancel()" class="cursor-pointer bg-red-500 text-white px-2 py-1 rounded-full">X</span>
+        </header>
+        <ul class="chatbox">
+            <li class="chat-incoming message">
+                <p>Hey! How can I assist you today?</p>
+            </li>
+        </ul>
+        <div class="chat-input mt-2">
+            <textarea class="chatbox-input" rows="1" cols="17" placeholder="Enter a message..."></textarea>
+            
+            <button id="sendBTN" class="chatbox-button">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
